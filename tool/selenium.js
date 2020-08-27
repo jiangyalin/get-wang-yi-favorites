@@ -8,6 +8,7 @@ module.exports = {
   get: () => {
     if (!selenium) {
       selenium = new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options()).build()
+      // selenium = new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless()).build()
     }
     return selenium
   },
