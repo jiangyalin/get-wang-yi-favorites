@@ -22,19 +22,36 @@ const example = async url => {
     await driver.sleep(5000)
     const js = 'window.document.querySelector(\'body\').innerHTML =  window.frames[\'contentFrame\'].document.querySelector(\'body\').innerHTML'
     await driver.executeScript(js)
-    const window = new jsDom(await driver.getPageSource()).window
-    const $ = jquery(window)
-    const list = []
+    let window = new jsDom(await driver.getPageSource()).window
+    let $ = jquery(window)
+    let list = []
     const ulDom = $('ul.j-flag').eq(0)
     for (let i = 0; i < ulDom.find('li').length; i++) {
       list.push({
         id: ulDom.find('li').eq(i).attr('data-matcher').substring(9),
         name: ulDom.find('li').eq(i).find('.name a').text(),
-        size: ulDom.find('li').eq(i).find('.num').text()
+        size: ulDom.find('li').eq(i).find('.num').text(),
+        node: []
       })
     }
-    console.log('uuu')
-    console.log('aaa', list)
+    for (let i = 0; i < list.length; i++) {
+      console.log('url', config.url + '?id=' + list[list.length - i - 1].id)
+      await driver.get('https://www.baidu.com')
+      await driver.get(config.url + '?id=' + list[list.length - i - 1].id)
+      await driver.sleep(5000)
+      await driver.executeScript(js)
+      window = new jsDom(await driver.getPageSource()).window
+      $ = jquery(window)
+      const musicListDom = $('.m-table tbody tr')
+      for (let j = 0; j < musicListDom.length; j++) {
+        let name = musicListDom.eq(j).find('.tt b').attr('title')
+        list[i].node.push({
+          name: name.substring(0, name.indexOf('-') === -1 ? name.length : name.indexOf('-') - 1),
+          author: musicListDom.eq(j).find('td').eq(3).find('span').attr('title')
+        })
+      }
+    }
+    console.log('list', list)
     // selenium.quit()
   } catch {
     console.log('异常')
@@ -42,4 +59,4 @@ const example = async url => {
   }
 }
 
-example(config.url)
+example(config.url + '?id=' + config.id)
