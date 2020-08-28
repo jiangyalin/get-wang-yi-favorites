@@ -1,8 +1,16 @@
 {
   "dependencies": {
+    "axios": "^0.20.0",
+    "browser-id3-writer": "^4.4.0",
     "chromedriver": "^84.0.1",
+    "cross-blob": "^2.0.0",
+    "crypto-js": "^4.0.0",
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
+    "jimp": "^0.16.0",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
+    "metaflac-js": "^1.0.5",
     "selenium-webdriver": "^4.0.0-alpha.7"
   }
 }
