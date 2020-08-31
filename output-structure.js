@@ -31,5 +31,7 @@ list.forEach(item => {
   })
 })
 
+// "name":"Forever...","author":"savage genius","title":"Forever... - ( )"
+
 console.log('_list', _list.filter(item => _list.filter(node => node === item).length === 3))
 console.log('aaa', _list.filter(item => _list.filter(node => node === item).length === 3).length / 3)
