@@ -15,7 +15,7 @@ list.forEach(item => {
   createFolder(path)
   item.node.forEach(data => {
     const fileName = data.author.replace(/\//g, ',').replace(/ /g, ' ') + ' - ' + data.name.replace(/ /g, ' ')
-      .replace(/\?/g, '？').replace(/：/g, ':').replace(/é/g, 'é')
+      .replace(/\?/g, '？').replace(/：/g, ':')
     const matches = stringSimilarity.findBestMatch(fileName, readDir)
     const thisSuffix = matches.bestMatch.target.substring(matches.bestMatch.target.lastIndexOf('.'))
     if (thisSuffix === '.ncm') {
