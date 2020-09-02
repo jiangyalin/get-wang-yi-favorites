@@ -11,6 +11,7 @@
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "metaflac-js": "^1.0.5",
-    "selenium-webdriver": "^4.0.0-alpha.7"
+    "selenium-webdriver": "^4.0.0-alpha.7",
+    "string-similarity": "^4.0.2"
   }
 }
