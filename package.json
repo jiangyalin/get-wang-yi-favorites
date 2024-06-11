@@ -5,6 +5,7 @@
     "chromedriver": "^84.0.1",
     "cross-blob": "^2.0.0",
     "crypto-js": "^4.0.0",
+    "dotenv": "^16.4.5",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
     "jimp": "^0.16.0",
