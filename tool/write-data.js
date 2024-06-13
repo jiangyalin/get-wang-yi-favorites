@@ -1,9 +1,11 @@
-const fs = require('fs')
-const createFolder = require('./create-folder')
+import fs from 'fs'
+import createFolder from './create-folder'
 
 // 写入数据
-module.exports = (name, data) => {
+const writeData = (name, data) => {
   createFolder('./data')
   const path = './data/' + name + '.json'
   fs.writeFileSync(path, JSON.stringify(data))
 }
+
+export default writeData

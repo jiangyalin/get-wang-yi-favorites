@@ -1,5 +1,5 @@
 // 创建任意层级文件夹
-const fs = require('fs')
+import fs from 'fs'
 
 const createFolder = path => {
   const arr = path.substring(path.indexOf('/') + 1).split('/')
@@ -11,4 +11,4 @@ const createFolder = path => {
   })
 }
 
-module.exports = createFolder
+export default createFolder

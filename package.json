@@ -7,12 +7,15 @@
     "crypto-js": "^4.0.0",
     "dotenv": "^16.4.5",
     "es6-promise": "^4.2.8",
+    "form-data": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jimp": "^0.16.0",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "metaflac-js": "^1.0.5",
+    "qs": "^6.12.1",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "string-similarity": "^4.0.2"
-  }
+  },
+  "type": "module"
 }

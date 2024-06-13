@@ -1,8 +1,10 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
+// require('dotenv').config()
 
 const env = process.env
 
-module.exports = {
+export default {
   port: 8085,
   url: 'https://music.163.com/#/my/m/music/playlist',
   id: env.ID,
