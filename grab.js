@@ -1,10 +1,7 @@
 // 抓取收藏信息（第一步）
-// import { By } from 'selenium-webdriver'
 import { JSDOM } from 'jsdom'
 import jquery from 'jquery'
-// import selenium from './tool/selenium'
-import config from './config.js'
-// import writeData from './tool/write-data'
+import fs from 'fs'
 import ajax from './tool/ajax.js'
 
 // const driver = selenium.get()
@@ -32,8 +29,8 @@ const example = async url => {
     isFormData: true
   })
 
-  const listRes = [...listRes1.playlist, ...listRes2.playlist].filter(item => item.userId === 280316200)
-  // console.log('listRes', listRes)
+  let listRes = [...listRes1.playlist, ...listRes2.playlist].filter(item => item.userId === 280316200)
+  listRes = [listRes[13]]
 
   const playList = []
   for (let i = 0; i < listRes.length; i++) {
@@ -44,42 +41,42 @@ const example = async url => {
       id: item.id,
       trackCount: item.trackCount
     }
+    const playlistsRes = await ajax({
+      url: 'https://music.163.com/playlist',
+      method: 'get'
+    }, {
+      query: {
+        id: item.id
+      }
+    })
+
+    let dom = new JSDOM(playlistsRes)
+    let $ = jquery(dom.window)
+    const list = []
+    const listDom = $('#j-app .m-sglst .m-sgitem')
+    for (let i = 0; i < listDom.length; i++) {
+      const itemDom = listDom.eq(i)
+      const href = itemDom.attr('href')
+      const name = itemDom.find('.sgtl').text()
+      if (!name) continue
+      const info = itemDom.find('.sginfo').text()
+      const singer = info.split(' - ')[0]
+      const album = info.split(' - ')[1]
+      list.push({
+        id: href,
+        name,
+        singer,
+        album
+      })
+    }
+
+    play.list = list
 
     playList.push(play)
   }
 
   console.log('playList', playList)
-
-  // const playlistsRes = await ajax({
-  //   url: 'https://music.163.com/playlist',
-  //   method: 'get'
-  // }, {
-  //   query: {
-  //     id: 9350374554
-  //   }
-  // })
-  // // console.log('infoRes', infoRes)
-  // let dom = new JSDOM(playlistsRes)
-  // let $ = jquery(dom.window)
-  // // console.log('$', $('#j-app .m-sglst').html())
-  // const list = []
-  // const listDom = $('#j-app .m-sglst .m-sgitem')
-  // for (let i = 0; i < listDom.length; i++) {
-  //   const itemDom = listDom.eq(i + 1)
-  //   const href = itemDom.attr('href')
-  //   const name = itemDom.find('.sgtl').text()
-  //   if (!name) continue
-  //   const info = itemDom.find('.sginfo').text()
-  //   const singer = info.split(' - ')[0]
-  //   const album = info.split(' - ')[1]
-  //   list.push({
-  //     id: href,
-  //     name,
-  //     singer,
-  //     album
-  //   })
-  // }
-  // console.log('list', list)
+  fs.writeFileSync('./test.json', JSON.stringify(playList, null, 2))
 }
 
 example('https://music.163.com/#/user?id=280316200')
